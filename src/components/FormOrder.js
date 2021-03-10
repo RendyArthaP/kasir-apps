@@ -20,7 +20,7 @@ const FormOrder = ({values, handleChange, handleAddItem}) => {
           <Form.Label>Jumlah barang</Form.Label>
           <Form.Control 
             type="number" 
-            placeholder="Masukkan jumlah barang anda"
+            placeholder="0 unit"
             name="jumlahBarang"
             value={values.jumlahBarang}
             onChange={handleChange}
@@ -31,7 +31,7 @@ const FormOrder = ({values, handleChange, handleAddItem}) => {
           <Form.Label>Harga barang</Form.Label>
           <Form.Control 
             type="number"
-            placeholder="Masukkan harga barang anda"
+            placeholder="Rp. 0"
             name="hargaBarang"
             value={values.hargaBarang}
             onChange={handleChange}

@@ -9,8 +9,8 @@ function App() {
     {
       id: 0,
       namaBarang: "",
-      jumlahBarang: 0,
-      hargaBarang: 0
+      jumlahBarang: "",
+      hargaBarang: ""
     }
   )
   
@@ -24,27 +24,29 @@ function App() {
 
   const handleAddItem = (e) => {
     e.preventDefault();
-    if(values.namaBarang === "" || values.jumlahBarang === 0 || values.hargaBarang === 0) {
+    if(values.namaBarang === "" || values.jumlahBarang === "" || values.hargaBarang === "") {
       alert("Please input your data")
-    } else if(values.jumlahBarang > 10) {
-      alert("Maksimal jumlah per barang adalah 10 unit")
+    } else if(values.jumlahBarang > "10") {
+        alert("Maksimal jumlah per barang adalah 10 unit")
+    } else if(values.hargaBarang.length < 3) {
+        alert("Harga yang anda masukkan salah") 
     } else {
-      const newValues = {
-        id: values.id,
-        item: values.namaBarang,
-        input: values.jumlahBarang,
-        price: values.hargaBarang
-      }
-      setListInputItem([...listInputItem, newValues])
-      setValues({
-        id: values.id + 1,
-        namaBarang: "",
-        jumlahBarang: 0,
-        hargaBarang: 0
-      })
+        const newValues = {
+          id: values.id,
+          item: values.namaBarang,
+          input: Number(values.jumlahBarang),
+          price: Number(values.hargaBarang)
+        }
+        setListInputItem([...listInputItem, newValues])
+        setValues({
+          id: values.id + 1,
+          namaBarang: "",
+          jumlahBarang: "",
+          hargaBarang: ""
+        })
     }
   }
-  console.log(listInputItem)
+
   return (
     <div className="d-flex ">
       <Container>
