@@ -1,21 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 
-const FormOrder = ({handleAddItem}) => {
-  const [values, setValues] = useState({
-    namaBarang: "",
-    jumlahBarang: "",
-    hargaBarang: ""
-  })
-
-  const handleChange = (e) => {
-    const {name, value} = e.target
-    setValues({
-      ...values,
-      [name]: value
-    })
-  }
-  
+const FormOrder = ({handleAddItem, values, handleChange}) => {
   return (
     <Container>
       <Form onSubmit={(e) => handleAddItem(e, values)}>
