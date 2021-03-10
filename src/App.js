@@ -4,16 +4,16 @@ import FormOrder from "./components/FormOrder";
 import OrderPage from "./components/OrderPage";
 
 function App() {
+  const [listInputItem, setListInputItem] = useState([])
   const [values, setValues] = useState(
     {
+      id: 0,
       namaBarang: "",
-      jumlahBarang: "",
-      hargaBarang: ""
+      jumlahBarang: 0,
+      hargaBarang: 0
     }
   )
-
-  const [listInputItem, setListInputItem] = useState([])
-
+  
   const handleChange = (e) => {
     const {name, value} = e.target
     setValues({
@@ -24,18 +24,27 @@ function App() {
 
   const handleAddItem = (e) => {
     e.preventDefault();
-    if(values.namaBarang === "" || values.jumlahBarang === "" || values.hargaBarang === "") {
+    if(values.namaBarang === "" || values.jumlahBarang === 0 || values.hargaBarang === 0) {
       alert("Please input your data")
+    } else if(values.jumlahBarang > 10) {
+      alert("Maksimal jumlah per barang adalah 10 unit")
     } else {
-      console.log(values)
+      const newValues = {
+        id: values.id,
+        item: values.namaBarang,
+        input: values.jumlahBarang,
+        price: values.hargaBarang
+      }
+      setListInputItem([...listInputItem, newValues])
       setValues({
+        id: values.id + 1,
         namaBarang: "",
-        jumlahBarang: "",
-        hargaBarang: ""
+        jumlahBarang: 0,
+        hargaBarang: 0
       })
     }
   }
-
+  console.log(listInputItem)
   return (
     <div className="d-flex ">
       <Container>
@@ -45,7 +54,9 @@ function App() {
           handleChange = {handleChange}
           handleAddItem = {handleAddItem}
         />
-        <OrderPage />
+        <OrderPage 
+          listInputItem = {listInputItem}
+        />
       </Container>
     </div>
   );
