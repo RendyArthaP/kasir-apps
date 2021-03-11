@@ -24,7 +24,7 @@ export const getUserError = (error) => {
   }
 }
 
-export const getDataUsers = (userLogin, {toOrder}) => {
+export const getDataUsers = (userLogin, {directedToHome}, setSuccessAlert, setSuccessContent, setErrorAlert, setErrorContent) => {
   return function(dispatch) {
     dispatch(getUserRequest);
       axios
@@ -32,10 +32,21 @@ export const getDataUsers = (userLogin, {toOrder}) => {
       .then((result) => {
         const user = result.data.find((user) => user.email === userLogin.email && user.password === userLogin.password)
         if(user) {
-          alert("Login berhasil")
-          return toOrder()
+          return (
+            setSuccessAlert(true),
+            setSuccessContent("Login berhasil"),
+            setTimeout(() => {
+              directedToHome()
+            }, 1000)
+          )        
         } else {
-          return alert("Login gagal!")
+          return(
+            setErrorAlert(true),
+            setErrorContent("Email dan password yang anda masukan salah!"),
+            setTimeout(() => {
+              setErrorAlert(false)
+            }, 2000)
+          )
         }
       })
       .catch((error) => getUserError(error))

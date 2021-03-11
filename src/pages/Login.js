@@ -3,13 +3,18 @@ import { Form, Button, Container } from 'react-bootstrap';
 import {useHistory} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { getDataUsers } from '../redux/actions/User.GetUser.Actions';
+import Success from "../components/alerts/Success";
+import Error from "../components/alerts/Error";
 
 const Login = () => {
+  const [errorAlert, setErrorAlert] = useState(false)
+  const [errorContent, setErrorContent] = useState("")
+  const [successAlert, setSuccessAlert] = useState(false)
+  const [successContent, setSuccessContent] = useState("")
   const userList = useSelector((state) => state.handleUsers)
   const dispatch = useDispatch()
   const history = useHistory()
-  const toOrder = () => history.push("/kasir-app")
-  const [isLogin, setIsLogin] = useState(false)
+  const directedToHome = () => history.push("/kasir-app")
   const [userLogin, setUserLogin] = useState({
     email: "",
     password: ""
@@ -25,11 +30,26 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(getDataUsers(userLogin, {toOrder}))
-    setUserLogin({
-      email:"",
-      password:""
-    })
+    if(userLogin.email === "" || userLogin.password === "") {
+      setErrorAlert(true)
+      setErrorContent("Silahkan input data anda dengan lengkap!")
+      setTimeout(() => {
+        setErrorAlert(false)
+      }, 2000)
+    } else {
+      dispatch(getDataUsers(
+        userLogin, 
+        {directedToHome},
+        setSuccessAlert,
+        setSuccessContent,
+        setErrorAlert,
+        setErrorContent
+      ))
+      setUserLogin({
+        email:"",
+        password:""
+      })
+    }
   }
   return (
     <Container>
@@ -38,6 +58,8 @@ const Login = () => {
         onSubmit={handleLogin}
       >
         <h1 className="text-center">Login Kasir-App</h1>
+        {successAlert && <Success successContent={successContent}/>}
+        {errorAlert && <Error errorContent={errorContent}/>}
         <Form.Group>
           <Form.Label>Email address</Form.Label>
           <Form.Control 
