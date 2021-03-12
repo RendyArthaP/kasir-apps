@@ -1,4 +1,4 @@
-import { ADD_ITEM } from '../actions/Order.AddItem.Actions';
+import { ADD_ITEM, DELETE_ITEM } from '../actions/Order.HandleItem.Actions';
 
 const initialState = [
   {
@@ -23,6 +23,11 @@ const handleItem = (state = initialState, action) => {
           hargaBarang: Number(action.value.hargaBarang)
         }
       ]
+    case DELETE_ITEM:
+      let deleteStateItem = state.filter(items => items.id !== action.id)
+
+      return deleteStateItem
+
     default:
       return state;
   }

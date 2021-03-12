@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Container } from 'react-bootstrap'
 
-const OrderPage = ({itemList}) => {
+const OrderPage = ({itemList, handleDeleteItem}) => {
   const itemPrice = itemList.reduce((accumulation, currentItem) => 
     accumulation + currentItem.hargaBarang * currentItem.jumlahBarang, 0
   ) 
@@ -40,6 +40,12 @@ const OrderPage = ({itemList}) => {
               <h5>Subtotal / Item</h5>
               <p>Rp.{subtotalItem(items)}</p>
             </div>
+            <Button 
+              variant="danger"
+              onClick={() => handleDeleteItem(items.id)}
+            >
+              Delete
+            </Button>
           </div>
         ))}
         {itemList.length > 0 && (
@@ -51,6 +57,11 @@ const OrderPage = ({itemList}) => {
             <Button>
               Submit
             </Button>
+          </div>
+        )}
+        {itemList.length === 0 && (
+          <div>
+            <h5 className="text-center pt-5">Keranjang kosong, silahkan masukkan barang!</h5>
           </div>
         )}
       </Container>

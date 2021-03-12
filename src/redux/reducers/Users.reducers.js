@@ -14,7 +14,8 @@ const handleUsers = (state = initialState, action) => {
       console.log(action)
       return {
         ...state,
-        isLogin: true
+        isLogin: true,
+        result: action.result
       }
     case GET_USER_ERROR:
       console.log(action)

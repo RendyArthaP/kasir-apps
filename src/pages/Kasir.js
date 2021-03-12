@@ -6,7 +6,7 @@ import OrderPage from "../components/OrderPage";
 import Success from "../components/alerts/Success";
 import Error from "../components/alerts/Error";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../redux/actions/Order.AddItem.Actions";
+import { addItem, deleteItem } from "../redux/actions/Order.HandleItem.Actions";
 import { useHistory } from 'react-router-dom'
 
 function Kasir() {
@@ -36,7 +36,13 @@ function Kasir() {
 
   const itemList = useSelector((state) => state.handleItem)
   const dispatch = useDispatch()
+
+  const handleDeleteItem = id => {
+    dispatch(deleteItem(id))
+  }
+
   const handleAddItem = (e, value) => {
+    
     e.preventDefault();
     if(values.namaBarang === "" || values.jumlahBarang === "" || values.hargaBarang === "") {
       setErrorContent("Mohon isi form di bawah dengan lengkap")
@@ -74,7 +80,7 @@ function Kasir() {
       })
     }
   }
-
+  console.log(itemList)
   useEffect(() => {}, [itemList])
 
   return (
@@ -91,6 +97,7 @@ function Kasir() {
         />
         <OrderPage 
           itemList = {itemList}
+          handleDeleteItem = {handleDeleteItem}
         />
       </Container>
     </div>
