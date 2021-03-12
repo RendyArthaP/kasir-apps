@@ -1,12 +1,9 @@
 import React from 'react'
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import { useSelector } from "react-redux"
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Kasir from './pages/Kasir';
 import Login from './pages/Login';
 
 const App = () => {
-  const userLogin = useSelector((state) => state.handleUsers)
-  const isLoggedIn = userLogin.isLogin
   return (
     <Router>
       <Switch>
@@ -14,7 +11,7 @@ const App = () => {
           <Login />
         </Route>
         <Route path="/kasir-app">
-          {isLoggedIn ? <Kasir /> : <Redirect to="/"/>} 
+          <Kasir />
         </Route>
       </Switch>
     </Router>

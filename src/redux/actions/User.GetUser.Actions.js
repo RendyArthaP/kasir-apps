@@ -34,6 +34,9 @@ export const getDataUsers = (userLogin, {directedToHome}, setSuccessAlert, setSu
         console.log(user)
         if(user) {
           dispatch(getUserSuccess())
+          let {password, ...dataUserLogin} = user
+          localStorage.setItem("user", JSON.stringify(dataUserLogin))
+          localStorage.setItem("isLogin", true)
           return (  
             setSuccessAlert(true),
             setSuccessContent("Login berhasil"),

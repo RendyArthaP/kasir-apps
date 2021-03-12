@@ -7,8 +7,15 @@ import Success from "../components/alerts/Success";
 import Error from "../components/alerts/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../redux/actions/Order.AddItem.Actions";
+import { useHistory } from 'react-router-dom'
 
 function Kasir() {
+  const history = useHistory()
+  const isLoggedIn = JSON.parse(localStorage.getItem("isLogin"))
+
+  if(!isLoggedIn) {
+    history.push("/")
+  }
   const [values, setValues] = useState({
     namaBarang: "",
     jumlahBarang: "",
@@ -74,7 +81,6 @@ function Kasir() {
     <div>
       <Menubar />
       <Container>
-        
         <h1 className="align-items-center text-center">Kasir - Apps</h1>
         {successAlert && <Success successContent={successContent}/>}
         {errorAlert && <Error errorContent={errorContent}/>}
