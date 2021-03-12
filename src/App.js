@@ -1,15 +1,22 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Menubar from './components/Menubar';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { useSelector } from "react-redux"
 import Kasir from './pages/Kasir';
 import Login from './pages/Login';
 
 const App = () => {
+  const userLogin = useSelector((state) => state.handleUsers)
+  const isLoggedIn = userLogin.isLogin
   return (
     <Router>
-      <Menubar />
-      <Route exact path="/" component={Login}/>
-      <Route exact path="/kasir-app" component={Kasir}/>
+      <Switch>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <Route path="/kasir-app">
+          {isLoggedIn ? <Kasir /> : <Redirect to="/"/>} 
+        </Route>
+      </Switch>
     </Router>
   )
 }

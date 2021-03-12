@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { getDataUsers } from '../redux/actions/User.GetUser.Actions';
 import Success from "../components/alerts/Success";

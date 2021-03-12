@@ -11,11 +11,13 @@ const handleUsers = (state = initialState, action) => {
         ...state
       }
     case GET_USER_SUCCESS:
+      console.log(action)
       return {
         ...state,
         isLogin: true
       }
     case GET_USER_ERROR:
+      console.log(action)
       return {
         ...state,
         error: action.error

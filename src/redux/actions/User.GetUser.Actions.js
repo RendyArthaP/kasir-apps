@@ -31,8 +31,10 @@ export const getDataUsers = (userLogin, {directedToHome}, setSuccessAlert, setSu
       .get("https://604a28e69251e100177ce121.mockapi.io/users")
       .then((result) => {
         const user = result.data.find((user) => user.email === userLogin.email && user.password === userLogin.password)
+        console.log(user)
         if(user) {
-          return (
+          dispatch(getUserSuccess())
+          return (  
             setSuccessAlert(true),
             setSuccessContent("Login berhasil"),
             setTimeout(() => {
@@ -51,5 +53,4 @@ export const getDataUsers = (userLogin, {directedToHome}, setSuccessAlert, setSu
       })
       .catch((error) => getUserError(error))
   }
-    
 }

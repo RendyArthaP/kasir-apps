@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import FormOrder from "../components/FormOrder";
+import Menubar from "../components/Menubar";
 import OrderPage from "../components/OrderPage";
 import Success from "../components/alerts/Success";
 import Error from "../components/alerts/Error";
@@ -31,7 +32,7 @@ function Kasir() {
   const handleAddItem = (e, value) => {
     e.preventDefault();
     if(values.namaBarang === "" || values.jumlahBarang === "" || values.hargaBarang === "") {
-      setErrorContent("Please input your data")
+      setErrorContent("Mohon isi form di bawah dengan lengkap")
       setErrorAlert(true)
       setSuccessAlert(false)
       setInterval(() => {
@@ -70,8 +71,10 @@ function Kasir() {
   useEffect(() => {}, [itemList])
 
   return (
-    <div className="d-flex ">
+    <div>
+      <Menubar />
       <Container>
+        
         <h1 className="align-items-center text-center">Kasir - Apps</h1>
         {successAlert && <Success successContent={successContent}/>}
         {errorAlert && <Error errorContent={errorContent}/>}
